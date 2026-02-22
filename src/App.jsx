@@ -121,33 +121,19 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       <Toaster position="top-right" />
       
-            {/* Navbar */}
-      <nav className="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-2xl sticky top-0 z-50">
+      <nav className="bg-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center shadow-lg border border-white/30">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                </svg>
-              </div>
-              <h1 className="text-2xl font-bold text-white">
-                TaskMaster <span className="text-yellow-300">Pro</span>
-              </h1>
-            </div>
-            
-            <div className="flex items-center gap-4">
-              <span className="text-white/90 bg-white/10 px-4 py-2 rounded-xl text-sm border border-white/30">
-                {user.email}
-              </span>
+            <h1 className="text-2xl font-bold text-blue-600">
+              TaskMaster Pro
+            </h1>
+            <div className="flex items-center space-x-4">
+              <span className="text-gray-700">{user.email}</span>
               <button
                 onClick={handleLogout}
-                className="bg-red-500/30 hover:bg-red-500/50 text-white px-4 py-2 rounded-xl transition-all duration-300 border border-white/30 flex items-center gap-2"
+                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-                Salir
+                Cerrar Sesión
               </button>
             </div>
           </div>
@@ -157,54 +143,47 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Dashboard tasks={tasks} />
 
-               {/* Buscador y filtros */}
-        <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 mb-6 shadow-2xl">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1 relative">
-              <input
-                type="text"
-                placeholder="🔍 Buscar tareas..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-5 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/70 focus:ring-2 focus:ring-white focus:border-transparent pl-12"
-              />
-              <svg className="absolute left-4 top-3.5 w-5 h-5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-            
-            <div className="flex gap-2">
-              <button
-                onClick={() => setFilter('all')}
-                className={`px-5 py-3 rounded-xl font-medium transition-all duration-300 ${
-                  filter === 'all' 
-                    ? 'bg-white text-indigo-600 shadow-lg scale-105 font-bold' 
-                    : 'bg-white/20 text-white hover:bg-white/30 border border-white/30'
-                }`}
-              >
-                📋 Todas
-              </button>
-              <button
-                onClick={() => setFilter('pending')}
-                className={`px-5 py-3 rounded-xl font-medium transition-all duration-300 ${
-                  filter === 'pending' 
-                    ? 'bg-white text-yellow-600 shadow-lg scale-105 font-bold' 
-                    : 'bg-white/20 text-white hover:bg-white/30 border border-white/30'
-                }`}
-              >
-                ⏳ Pendientes
-              </button>
-              <button
-                onClick={() => setFilter('completed')}
-                className={`px-5 py-3 rounded-xl font-medium transition-all duration-300 ${
-                  filter === 'completed' 
-                    ? 'bg-white text-green-600 shadow-lg scale-105 font-bold' 
-                    : 'bg-white/20 text-white hover:bg-white/30 border border-white/30'
-                }`}
-              >
-                ✅ Completadas
-              </button>
-            </div>
+        <div className="mb-6 flex flex-col sm:flex-row gap-4">
+          <div className="flex-1">
+            <input
+              type="text"
+              placeholder="Buscar tareas..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setFilter('all')}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                filter === 'all' 
+                  ? 'bg-blue-500 text-white' 
+                  : 'bg-white text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              Todas
+            </button>
+            <button
+              onClick={() => setFilter('pending')}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                filter === 'pending' 
+                  ? 'bg-yellow-500 text-white' 
+                  : 'bg-white text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              Pendientes
+            </button>
+            <button
+              onClick={() => setFilter('completed')}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                filter === 'completed' 
+                  ? 'bg-green-500 text-white' 
+                  : 'bg-white text-gray-700 hover:bg-gray-100'
+              }`}
+            >
+              Completadas
+            </button>
           </div>
         </div>
 

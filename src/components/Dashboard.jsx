@@ -5,112 +5,153 @@ export default function Dashboard({ tasks }) {
     total: 0,
     completed: 0,
     pending: 0,
-    highPriority: 0,
     completionRate: 0
   })
 
   useEffect(() => {
-    if (tasks.length > 0) {
-      const completed = tasks.filter(t => t.completed).length
-      const pending = tasks.length - completed
-      const highPriority = tasks.filter(t => t.priority === 'alta').length
-      
-      setStats({
-        total: tasks.length,
-        completed,
-        pending,
-        highPriority,
-        completionRate: tasks.length > 0 ? Math.round((completed / tasks.length) * 100) : 0
-      })
-    }
+    const completed = tasks.filter(t => t.completed).length
+    const pending = tasks.length - completed
+    const rate = tasks.length > 0 ? Math.round((completed / tasks.length) * 100) : 0
+    
+    setStats({
+      total: tasks.length,
+      completed,
+      pending,
+      completionRate: rate
+    })
   }, [tasks])
 
   return (
     <div className="space-y-6 mb-8">
-      {/* Grid de estadísticas con diseño moderno */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Total Tasks Card */}
-        <div className="group relative overflow-hidden bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 shadow-2xl transform hover:scale-105 transition-all duration-300">
-          <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full -mr-10 -mt-10 group-hover:scale-150 transition-transform"></div>
-          <div className="relative">
-            <p className="text-white/80 text-sm">Total Tareas</p>
-            <p className="text-4xl font-bold text-white mb-2">{stats.total}</p>
-            <div className="flex items-center gap-2 text-white/90 text-sm">
-              <span className="flex items-center gap-1">
-                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                {stats.completed} completadas
-              </span>
-              <span>·</span>
-              <span className="flex items-center gap-1">
-                <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
-                {stats.pending} pendientes
-              </span>
+      {/* Título con efecto diamante */}
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent animate-pulse">
+          ✨ Tu Proceso Diamantivo ✨
+        </h2>
+      </div>
+
+      {/* Grid de tarjetas DIAMANTIVAS */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        {/* Tarjeta Total - Estilo Zafiro */}
+        <div className="group relative bg-gradient-to-br from-blue-400 via-blue-500 to-indigo-600 rounded-2xl p-6 shadow-2xl transform transition-all duration-500 hover:scale-110 hover:rotate-1 hover:shadow-[0_20px_50px_rgba(59,130,246,0.7)] overflow-hidden">
+          <div className="absolute inset-0 bg-white/20 group-hover:translate-x-full transition-transform duration-700 skew-x-12"></div>
+          <div className="absolute -top-10 -right-10 w-24 h-24 bg-white/30 rounded-full blur-2xl animate-ping"></div>
+          <div className="relative flex items-center justify-between">
+            <div>
+              <p className="text-white/80 text-sm font-medium tracking-wider">💎 TOTAL</p>
+              <p className="text-5xl font-bold text-white mt-2 drop-shadow-glow">{stats.total}</p>
+              <div className="flex items-center gap-2 mt-2">
+                <span className="flex items-center gap-1 text-white/90 text-sm bg-white/20 px-3 py-1 rounded-full">
+                  <span className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></span>
+                  {stats.completed} hechas
+                </span>
+                <span className="flex items-center gap-1 text-white/90 text-sm bg-white/20 px-3 py-1 rounded-full">
+                  <span className="w-2 h-2 bg-yellow-300 rounded-full animate-pulse"></span>
+                  {stats.pending} por hacer
+                </span>
+              </div>
+            </div>
+            <div className="w-20 h-20 bg-white/30 rounded-2xl backdrop-blur-sm flex items-center justify-center transform rotate-12 group-hover:rotate-45 transition-all duration-500">
+              <span className="text-4xl filter drop-shadow-lg">💠</span>
             </div>
           </div>
         </div>
 
-        {/* Completed Card */}
-        <div className="group relative overflow-hidden bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-6 shadow-2xl transform hover:scale-105 transition-all duration-300">
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full -ml-16 -mb-16 group-hover:scale-150 transition-transform"></div>
-          <div className="relative">
-            <p className="text-white/80 text-sm">Completadas</p>
-            <p className="text-4xl font-bold text-white mb-2">{stats.completed}</p>
-            <div className="w-full bg-white/20 rounded-full h-2">
-              <div 
-                className="bg-white rounded-full h-2 transition-all duration-500"
-                style={{ width: `${stats.completionRate}%` }}
-              ></div>
+        {/* Tarjeta Completadas - Estilo Esmeralda */}
+        <div className="group relative bg-gradient-to-br from-green-400 via-green-500 to-emerald-600 rounded-2xl p-6 shadow-2xl transform transition-all duration-500 hover:scale-110 hover:-rotate-1 hover:shadow-[0_20px_50px_rgba(16,185,129,0.7)] overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-700"></div>
+          <div className="absolute -bottom-10 -left-10 w-24 h-24 bg-white/30 rounded-full blur-2xl animate-pulse"></div>
+          <div className="relative flex items-center justify-between">
+            <div>
+              <p className="text-white/80 text-sm font-medium tracking-wider">💚 COMPLETADAS</p>
+              <p className="text-5xl font-bold text-white mt-2 drop-shadow-glow">{stats.completed}</p>
+              <div className="mt-2 bg-white/20 rounded-full h-2 w-full overflow-hidden">
+                <div 
+                  className="bg-white h-2 rounded-full transition-all duration-1000"
+                  style={{ width: `${stats.completionRate}%` }}
+                ></div>
+              </div>
+              <p className="text-white/90 text-sm mt-2 font-medium">{stats.completionRate}% completado</p>
             </div>
-            <p className="text-white/90 text-sm mt-2">{stats.completionRate}% completado</p>
+            <div className="w-20 h-20 bg-white/30 rounded-2xl backdrop-blur-sm flex items-center justify-center transform -rotate-12 group-hover:rotate-45 transition-all duration-500">
+              <span className="text-4xl filter drop-shadow-lg">💚</span>
+            </div>
           </div>
         </div>
 
-        {/* Pending Card */}
-        <div className="group relative overflow-hidden bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl p-6 shadow-2xl transform hover:scale-105 transition-all duration-300">
+        {/* Tarjeta Pendientes - Estilo Rubí */}
+        <div className="group relative bg-gradient-to-br from-yellow-400 via-orange-500 to-red-500 rounded-2xl p-6 shadow-2xl transform transition-all duration-500 hover:scale-110 hover:rotate-1 hover:shadow-[0_20px_50px_rgba(239,68,68,0.7)] overflow-hidden">
           <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          <div className="relative">
-            <p className="text-white/80 text-sm">Pendientes</p>
-            <p className="text-4xl font-bold text-white mb-2">{stats.pending}</p>
-            {stats.pending > 0 ? (
-              <p className="text-white/90 text-sm animate-bounce">🎯 ¡A trabajar!</p>
-            ) : (
-              <p className="text-white/90 text-sm">🎉 Todo listo</p>
-            )}
+          <div className="absolute top-10 -right-10 w-32 h-32 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="relative flex items-center justify-between">
+            <div>
+              <p className="text-white/80 text-sm font-medium tracking-wider">❤️ PENDIENTES</p>
+              <p className="text-5xl font-bold text-white mt-2 drop-shadow-glow">{stats.pending}</p>
+              {stats.pending > 0 ? (
+                <p className="text-white/90 text-sm mt-2 flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full">
+                  <span className="w-2 h-2 bg-red-300 rounded-full animate-ping"></span>
+                  ¡A brillar!
+                </p>
+              ) : (
+                <p className="text-white/90 text-sm mt-2 flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full">
+                  <span className="w-2 h-2 bg-green-300 rounded-full animate-pulse"></span>
+                  Todo listo ✨
+                </p>
+              )}
+            </div>
+            <div className="w-20 h-20 bg-white/30 rounded-2xl backdrop-blur-sm flex items-center justify-center transform rotate-12 group-hover:-rotate-45 transition-all duration-500">
+              <span className="text-4xl filter drop-shadow-lg">❤️</span>
+            </div>
           </div>
         </div>
 
-        {/* Priority Card */}
-        <div className="group relative overflow-hidden bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-6 shadow-2xl transform hover:scale-105 transition-all duration-300">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-10"></div>
-          <div className="relative">
-            <p className="text-white/80 text-sm">Alta Prioridad</p>
-            <p className="text-4xl font-bold text-white mb-2">{stats.highPriority}</p>
-            <p className="text-white/90 text-sm flex items-center gap-1">
-              <span className="w-2 h-2 bg-red-400 rounded-full animate-ping"></span>
-              Requieren atención
-            </p>
+        {/* Tarjeta Diamante - Brillo Especial */}
+        <div className="group relative bg-gradient-to-br from-purple-400 via-pink-500 to-rose-600 rounded-2xl p-6 shadow-2xl transform transition-all duration-500 hover:scale-110 hover:-rotate-1 hover:shadow-[0_20px_50px_rgba(236,72,153,0.7)] overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+          <div className="absolute -inset-full group-hover:inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transition-all duration-1000"></div>
+          <div className="relative flex items-center justify-between">
+            <div>
+              <p className="text-white/80 text-sm font-medium tracking-wider">💎 BRILLO</p>
+              <p className="text-5xl font-bold text-white mt-2 drop-shadow-glow">{stats.total}</p>
+              <div className="flex items-center gap-2 mt-2">
+                <span className="flex items-center gap-1 text-white/90 text-sm bg-white/20 px-3 py-1 rounded-full">
+                  {stats.completed} 💚
+                </span>
+                <span className="flex items-center gap-1 text-white/90 text-sm bg-white/20 px-3 py-1 rounded-full">
+                  {stats.pending} ❤️
+                </span>
+              </div>
+            </div>
+            <div className="w-20 h-20 bg-white/30 rounded-2xl backdrop-blur-sm flex items-center justify-center transform group-hover:scale-125 group-hover:rotate-180 transition-all duration-700">
+              <span className="text-4xl filter drop-shadow-lg">💎</span>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Progreso General con animación */}
-      <div className="relative bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 shadow-2xl">
-        <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
-          <span>📊 Progreso General</span>
-          <span className="text-2xl">{stats.completionRate}%</span>
-        </h3>
+      {/* Barra de progreso diamantiva */}
+      <div className="relative bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 rounded-2xl p-8 shadow-2xl overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-10 animate-pulse"></div>
+        <div className="relative flex items-center justify-between text-white mb-4">
+          <h3 className="text-2xl font-bold flex items-center gap-2">
+            <span className="text-4xl animate-bounce">💎</span>
+            Brillo General
+          </h3>
+          <span className="text-4xl font-bold drop-shadow-glow">{stats.completionRate}%</span>
+        </div>
         
-        <div className="relative h-6 bg-white/20 rounded-full overflow-hidden mb-2">
+        <div className="relative h-8 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
           <div 
-            className="absolute inset-0 bg-gradient-to-r from-blue-300 via-white to-blue-300 rounded-full transition-all duration-1000"
+            className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-white to-yellow-300 rounded-full transition-all duration-1000"
             style={{ width: `${stats.completionRate}%` }}
           >
-            <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+            <div className="absolute inset-0 bg-white/40 animate-pulse"></div>
           </div>
         </div>
         
-        <p className="text-white/90 text-sm">
-          {stats.completed} de {stats.total} tareas completadas
+        <p className="text-white/90 text-sm mt-4 text-center font-medium">
+          {stats.completed} de {stats.total} tareas brillan con luz propia ✨
         </p>
       </div>
     </div>
